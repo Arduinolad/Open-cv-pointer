@@ -1,0 +1,63 @@
+#include "Servo.h"
+#include "cvzone.h"
+
+
+Servo x;
+Servo y;
+int Pinx = 11;
+int Piny = 9;
+
+
+
+SerialData data(7 , 1);
+
+
+int valsRec[7];
+
+void setup() {
+  // put your setup code here, to run once
+  
+  //pinMode(13,OUTPUT);
+  x.attach(Pinx);
+  data.begin(9600);
+  y.attach(Piny);
+  //Servo will immediately go to 0 remember!; 
+
+}
+
+void loop() {
+
+  // put your main code here, to run repeatedly:
+   data.Get(valsRec);
+   
+ 
+   //Serial.println(String(valsRec[1]) + String(valsRec[2]) + String(valsRec[3]));
+    //int angle = map(String(valsRec[1]) + String(valsRec[2]) + String(valsRec[3]), 0, 1023 , 0 , 180);
+    //char a = String(valsRec[1]);
+    //char b = valsRec[2];
+    //int angle = map(String(valsRec[1]) + String(valsRec[2]) + String(valsRec[3]), 0 , 1023 , 0 , 180));
+   String cooX = (String(valsRec[1]) + String(valsRec[2]) + String(valsRec[3]));
+   //Serial.println(coo);
+
+   String cooY = (String(valsRec[4]) + String(valsRec[5]) + String(valsRec[6]));
+
+int angleY = map(cooY.toInt(), 60, 430 ,0, 45);
+
+
+int angleX = map(cooX.toInt(), 90 , 590, 125 , 55);
+//Serial.println(angle);
+x.write(angleX);
+y.write(angleY);
+
+//Serial.println(cooY);
+
+
+delay(1000);
+//15 - 420; 
+
+
+   
+//int angle = map(valsRec[0], 41, 46, 0 , 180);
+//x.write(angle);
+//Serial.println(valsRec[0]);
+}
